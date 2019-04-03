@@ -15,6 +15,7 @@ public class Item39_4 {
 		int passed = 0;
 		
 		Class<?> testClass = Class.forName("first.Sample4");
+		Class<ExceptionTest3> e = ExceptionTest3.class;
 		for(Method m : testClass.getDeclaredMethods()) {
 			if(m.isAnnotationPresent(ExceptionTest2.class) || m.isAnnotationPresent(ExceptionContainer.class)) {
 				tests++;
@@ -25,8 +26,10 @@ public class Item39_4 {
 					Throwable exc = wrappedExc.getCause();
 					int oldPassed = passed;
 					ExceptionTest3[] excTests = m.getAnnotationsByType(ExceptionTest3.class);
+					
 					for(ExceptionTest3 excTest : excTests) {
-						if(excTest.value().isInstance(exc)) {
+						System.out.println(excTest.test());
+						if(excTest.values().isInstance(exc)) {
 							passed++;
 							break;
 						}
@@ -43,8 +46,8 @@ public class Item39_4 {
 
 
 class Sample4 {
-	@ExceptionTest3(IndexOutOfBoundsException.class)
-	@ExceptionTest3(NullPointerException.class)
+	@ExceptionTest3(values=IndexOutOfBoundsException.class, test="123")
+	@ExceptionTest3(values=NullPointerException.class, test="321")
 	public static void doubleBad() {
 		List<String> list = new ArrayList<>();
 		list.addAll(5, null);
@@ -56,7 +59,8 @@ class Sample4 {
 @Target(ElementType.METHOD)
 @Repeatable(ExceptionContainer.class)
 @interface ExceptionTest3{
-	Class<? extends Throwable> value();
+	Class<? extends Throwable> values();
+	String test();
 }
 
 // 1. Repeatable 어노테이션을 반환하는 컨테이너 애너테이션 정의
