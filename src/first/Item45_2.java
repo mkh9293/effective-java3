@@ -20,6 +20,7 @@ public class Item45_2 {
 			words.collect(
 					Collectors.groupingBy(word -> word.chars().sorted() // words 중 하나의 값을 추출하여 char 배열로 변환 후 정렬 (staple -> ['a','e'...])
 							               .collect(StringBuilder::new, (sb, c) -> sb.append((char) c), StringBuilder::append).toString() 
+							               // sb.append((char) c); 에서 char 타입을 명시한 이유는 int값이 리턴되기 때문이다. (char 처리는 스트림을 삼가하자)
 							               // collect 메서드는 3가지 인수를 받는다.
 							               // 1. 공급자: 대상 객체의 새로운 인스턴스 생성 (StringBuilder::new)
 							               // 2. 누산자: 요소를 대상에 추가 (sb, c) -> sb.append((char) c)  char 배열로 나누어진 값들을 append
