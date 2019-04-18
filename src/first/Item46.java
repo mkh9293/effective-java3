@@ -3,9 +3,13 @@ package first;
 import static java.util.stream.Collectors.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class Item46 {
@@ -22,9 +26,84 @@ public class Item46 {
 		List<String> list = map.keySet().stream().sorted(Comparator.comparing(map::get).reversed()).limit(2).collect(toList());
 		list.forEach(System.out::println);
 		
+		// toMap 메서드 (스트림을 맵으로 취합)
+		List<Album> albumList = Arrays.asList(new Album[] {
+			new Album(new Artist("moon"), 10),
+			new Album(new Artist("moon"), 15),
+			new Album(new Artist("kim"), 15),
+			new Album(new Artist("jin"), 5)
+		});
 		
+		Map<Artist, Album> topHists = albumList.stream().collect(
+										toMap(Album::getArtist,  
+											  a->a, 
+											  BinaryOperator.maxBy(Comparator.comparing(Album::getSales))));
 		
+		for(Artist keys : topHists.keySet()) {
+			System.out.println(topHists.get(keys).toString());
+		}
 		
 	}
 }
 
+class Album {
+	private Artist artist;
+	private int sales;
+	
+	public Album(Artist artist, int sales) {
+		this.artist = artist;
+		this.sales = sales;
+	}
+	
+	public Artist getArtist() {
+		return this.artist;
+	}
+	public int getSales() {
+		return this.sales;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(o == this) return true;
+		if(!(o instanceof Album)) return false;
+		Album album = (Album) o;
+		return album.artist == artist && album.sales == sales;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(artist, sales);
+	}
+
+	
+	@Override
+	public String toString() {
+		return this.artist +" : "+this.sales;
+	}
+}
+
+class Artist {
+	private String name;
+	
+	public Artist(String name) {
+		this.name = name;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(o == this) return true;
+		if(!(o instanceof Artist)) return false;
+		Artist artist = (Artist) o;
+		return artist.name == name;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name);
+	}
+
+	@Override
+	public String toString() {
+		return this.name;
+	}
+}
