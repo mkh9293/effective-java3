@@ -26,23 +26,30 @@ public class Item46 {
 		List<String> list = map.keySet().stream().sorted(Comparator.comparing(map::get).reversed()).limit(2).collect(toList());
 		list.forEach(System.out::println);
 		
+		
+		
 		// toMap 메서드 (스트림을 맵으로 취합)
 		List<Album> albumList = Arrays.asList(new Album[] {
-			new Album(new Artist("moon"), 10),
 			new Album(new Artist("moon"), 15),
+			new Album(new Artist("moon"), 10),			
 			new Album(new Artist("kim"), 15),
 			new Album(new Artist("jin"), 5)
 		});
 		
+		// 키가 중복될 경우, sale 값이 더 큰 것으로 값 매핑 
 		Map<Artist, Album> topHists = albumList.stream().collect(
 										toMap(Album::getArtist,  
 											  a->a, 
 											  BinaryOperator.maxBy(Comparator.comparing(Album::getSales))));
-		
 		for(Artist keys : topHists.keySet()) {
 			System.out.println(topHists.get(keys).toString());
 		}
 		
+		// 키가 중복될 경우, 마지막에 쓴 값으로 매핑
+		Map<Artist, Album> lastHits = albumList.stream().collect(toMap(Album::getArtist, a->a, (oldVal, newVal) -> newVal));
+		for(Artist keys : lastHits.keySet()) {
+			System.out.println(lastHits.get(keys).toString());
+		}
 	}
 }
 
