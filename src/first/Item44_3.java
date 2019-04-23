@@ -37,5 +37,7 @@ public class Item44_3 {
 		// BiFunction (String, Integer 타입의 인수를 받아서 String 타입의 결과 반환)
 		BiFunction<String, Integer, String> bi2 = (x, y) -> x + " " +y;
 		System.out.println(bi2.apply("hello World", 2));
+		
+		
 	}
 }
