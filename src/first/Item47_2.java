@@ -24,7 +24,7 @@ class SubLists {
 						.flatMap(x -> x);
 	}
 	
-	// prefixes, suffixes 메소드로 구분하여 멱집합 구현
+	// prefixes, suffixes 메소드로 구분하여 멱집합 구현ㅌ
 //	public static <E> Stream<List<E>> of(List<E> list) {
 //		return Stream.concat(Stream.of(Collections.emptyList()),
 //							 prefixes(list).flatMap(SubLists::suffixes));
