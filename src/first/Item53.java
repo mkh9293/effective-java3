@@ -1,7 +1,6 @@
 package first;
 
 /**
- * 
  * 가변인수는 신중히 사용.
  */
 public class Item53 {
