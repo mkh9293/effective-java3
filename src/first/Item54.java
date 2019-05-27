@@ -10,9 +10,30 @@ import java.util.List;
  */
 public class Item54 {
 	public static void main(String[] args) {
+		
+		
+		// 나쁜 예시, null이 반환될 경우 클라이언트쪽에서 null처리 코드 필요
 		Shop shop = new Shop();
-		List<Cheese> cheeses = shop.getCheeses_bad();
+		List<Cheese> cheeses = shop.getCheeses_bad();  
 		if(cheeses != null && cheeses.contains(Cheese.STILTON));
+		
+		// 니쁜 예시, null 처리가 없을 경우 오류발생.
+//		if(cheeses.contains(Cheese.STILTON)) {
+//			System.out.println(cheeses.toString());
+//		}
+		
+		
+		// 빈 컬렉션 좋은 예시,
+		// null 체크를 하지 않아도, 예상치못한 NullPointException을 피할 수 있음.
+		List<Cheese> cheeses2 = shop.getCheeses_nice();		
+		if(cheeses2.contains(Cheese.STILTON)) {
+			System.out.println(cheeses2.toString());
+		}
+		
+		
+		// 빈 배열 좋은 예시,
+		Cheese[] c = shop.getCheese_array();
+		
 	}
 }
 
@@ -21,7 +42,7 @@ enum Cheese {
 }
 
 class Shop {
-	private final List<Cheese> cheeseInStock = null;
+	private final List<Cheese> cheeseInStock = new ArrayList<>();
 
 	private static final Cheese[] EMPTY_CHEESE_ARRAY = new Cheese[0];
 	
@@ -65,7 +86,7 @@ class Shop {
 	 * 나쁜 예
 	 */
 	public List<Cheese> getCheeses_bad() {
-		return cheeseInStock.isEmpty() ? null : new ArrayList<>();
+		return cheeseInStock.isEmpty() ? null : new ArrayList<>(cheeseInStock);
 	}
 
 }
