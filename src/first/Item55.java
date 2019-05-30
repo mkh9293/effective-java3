@@ -45,7 +45,7 @@ public class Item55 {
 		
 		E result = null;
 		for(E e : c) {
-			if(result == null || e.compareTo(result) > 0) {
+			if(result == null || e.compareTo(result) > 0) {  // result가 비어있거나 | e 값이 기존 result보다 클 경우,
 				result = Objects.requireNonNull(e);
 			}
 		}
