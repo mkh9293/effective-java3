@@ -36,8 +36,17 @@ public class Item55_2 {
 		// 만약 항상 값이 채워져 있다고 확신할 수 있는 경우. (null이면 NoSuchElementException 발생함)
 		System.out.println(Optional.ofNullable(null).get());
 		
-		// TODO: continue...
+		// 기본값 설정 비용을 낮출 수 있는 orElseGet() 메소드
+		// 즉, of()의 값이 null일 경우만 해당 메소드가 실행되므로 기본값 비용을 낮출 수 있다는 뜻.
+		// 기존 orElse()는 null이 아니어도 ifNull()메소드가 한 번은 실행됨.
+		String o = Optional.of("is not null").orElseGet(()->ifNull());
+		System.out.println("o : " + o);
 	
+	}
+	
+	public static String ifNull() {
+		System.out.println("this method is not null");
+		return "result";
 	}
 	
 	public static <E extends Comparable<E>> Optional<E> max2(Collection<E> c) {
