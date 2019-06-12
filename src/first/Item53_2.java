@@ -14,6 +14,13 @@ import java.util.Set;
  */
 public class Item53_2 {
     public static void main(String a[]) {
+    	// 참고. 비트필드 -> 비트 연산을 사용한 필드. 단순계산이므로 시간복잡도는 O(1)
+    	int STYLE_BOARD = 1 << 1; 
+    	System.out.println(STYLE_BOARD);
+    	
+    	// EnumSet은 Enum들을 Set할 때 사용.
+    	EnumSet<TestEnum> ee = EnumSet.of(TestEnum.A, TestEnum.B);
+    	
         EnumSet<TestEnum> t = EnumSet.noneOf(TestEnum.class); // empty enumSet
         System.out.println("Empty enum : " + getBinaryVector(t));
  
