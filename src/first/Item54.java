@@ -3,6 +3,8 @@ package first;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 
@@ -18,10 +20,9 @@ public class Item54 {
 		if(cheeses != null && cheeses.contains(Cheese.STILTON));
 		
 		// 니쁜 예시, null 처리가 없을 경우 오류발생.
-//		if(cheeses.contains(Cheese.STILTON)) {
-//			System.out.println(cheeses.toString());
-//		}
-		
+		if(cheeses.contains(Cheese.STILTON)) {
+			System.out.println(cheeses.toString());
+		}
 		
 		// 빈 컬렉션 좋은 예시,
 		// null 체크를 하지 않아도, 예상치못한 NullPointException을 피할 수 있음.
@@ -30,9 +31,13 @@ public class Item54 {
 			System.out.println(cheeses2.toString());
 		}
 		
-		
 		// 빈 배열 좋은 예시,
 		Cheese[] c = shop.getCheese_array();
+		
+		// Collections 클래스의 변 컬렉션 List, Map, Set 
+		List<String> list = Collections.EMPTY_LIST;
+		Map<String, String> map = Collections.EMPTY_MAP;
+		Set<String> set = Collections.EMPTY_SET;
 		
 	}
 }
