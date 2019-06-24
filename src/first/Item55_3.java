@@ -51,6 +51,8 @@ public class Item55_3 {
 		// 하면 안되는 것 3. - 옵셔널을 맵의 값으로 사용하면 암됨.
 		// Map<K, Optional<V>> map, Map<Optional<K>, Optional<V>> map
 		// Map<Optional<K>, V> map
+		
+		OptionalInt i = OptionalInt.of(123);
 	}
 }
 
