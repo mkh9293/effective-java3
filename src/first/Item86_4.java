@@ -11,7 +11,7 @@ import java.util.Base64;
 public class Item86_4 {
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		// 직렬화
-		Machine notebook = new Notebook();
+		Notebook notebook = new Notebook();
 		byte[] byteMember;
 		
 		try(ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
@@ -22,7 +22,6 @@ public class Item86_4 {
 		}
 		
 		System.out.println(Base64.getEncoder().encodeToString(byteMember));
-		//rO0ABXNyAAxmaXJzdC5NZW1iZXLVGDEOeRvjaAIAAkkAA2FnZUwABG5hbWV0ABJMamF2YS9sYW5nL1N0cmluZzt4cAAAAAx0AAR0ZXN0
 		
 		// 역직렬화
 		String base64Member = "rO0ABXNyAA5maXJzdC5Ob3RlYm9va2E57rxBftYsAgACTAAHbWFjaGluZXQAD0xmaXJzdC9NYWNoaW5lO0wABG5hbWV0ABJMamF2YS9sYW5nL1N0cmluZzt4cHBw";
@@ -30,13 +29,15 @@ public class Item86_4 {
 		try(ByteArrayInputStream bais = new ByteArrayInputStream(decodeByteMember)) {
 			try (ObjectInputStream ois = new ObjectInputStream(bais)) {
 				Object objectMember = ois.readObject();
-				Machine notebooks = (Object) objectMember;
+				Notebook notebooks = (Notebook) objectMember;
 				System.out.println(notebooks);
 			}
 		}
 	}
 }
 
+// 인터페이스에 메소드가 추가될 경우,
+// 해당 인터페이스를 구현한 클래스들은 계속해서 내부가 변경된다.
 interface Machine extends Serializable {
 	public void test();
 }
