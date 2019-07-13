@@ -23,29 +23,37 @@ public class Item86_6 {
 										new FileInputStream("temp.txt"));
 		Sub sub2 = (Sub) ois.readObject();
 		ois.close();
-		System.out.println(sub2.version + " : " + sub2.defaultVersion);
+		System.out.println(sub2.version + " : " + sub2.defaultVersion);   // version : default value2
 	}
 }
 
-class Sub extends Super {
-	String version = null;
-	
-	Sub() {
-		super();
-//		version = "1.1.1";
-	}
-	private void readObjectNoData() throws InvalidObjectException {
-		System.out.println(33);
-		throw new InvalidObjectException("123");
-	}
-	
+// 기존 직렬화가능 클래스에(class Sub implements Serializable) 
+// 직렬화 가능 상위클래스를 추가(class Super) 
+class Sub extends Super implements Serializable {
+	String version = "version";
 }
 
 class Super implements Serializable {
-	String defaultVersion = null;
+	String defaultVersion = "default value";
 	
-	private void readObjectNoData() throws InvalidObjectException {
-		System.out.println(33);
-		throw new InvalidObjectException("123");
+	private void readObjectNoData() {
+		this.defaultVersion = "default value2";
+	}
+}
+
+class Extern {
+	public int age;
+	
+	public int getAge() {
+		return age;
+	}
+	
+	static class Internal implements Serializable {
+		private int newAge;
+		
+		public void setAge() {
+			Extern ex = new Extern();
+			this.newAge = ex.getAge();
+		}
 	}
 }
