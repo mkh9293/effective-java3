@@ -24,7 +24,7 @@ public class Item86_5 {
 	
 //		System.out.println(Base64.getEncoder().encodeToString(byteMember));
 		// 역직렬화
-		byte[] decodeByteMember = Base64.getDecoder().decode("rO0ABXNyAA9maXJzdC5FbXBsb3llZXNdz2+vISKNswIAAUwAB2FkZHJlc3N0ABJMamF2YS9sYW5nL1N0cmluZzt4cHQAAzEyMw==");
+		byte[] decodeByteMember = Base64.getDecoder().decode(Base64.getEncoder().encodeToString(byteMember));
 		try(ByteArrayInputStream bais = new ByteArrayInputStream(decodeByteMember)) {
 			try (ObjectInputStream ois = new ObjectInputStream(bais)) {
 				Employees emps = (Employees) ois.readObject();
@@ -33,14 +33,37 @@ public class Item86_5 {
 				System.out.println(emps.age);
 			}
 		}
+		
+
+        
+		
 	}
 }
 
 class Employees extends Persons implements Serializable {
 
 	String address;
-
+	int age = -1;
+	
 	public Employees() {
+		try {
+			if(age < 0) {
+	            throw new IllegalArgumentException("Negative Zombie2 value");
+	        }
+		} catch (IllegalArgumentException e) {
+//			System.gc();
+//	        System.runFinalization();
+	        this.finalize();
+		}
+		  
+	        this.age = age;
+	        
+	}
+	
+	@Override
+	public void finalize() {
+		super.name = "11";
+		super.someThing();
 	}
 
 }	
@@ -50,9 +73,17 @@ class Persons implements Serializable{
 	String name = "name";
 	int age;
 	
+	  public void someThing() {
+	        System.out.println(22);
+	    }
+	
 	private void readObjectNoData() throws InvalidObjectException {
 		name = "123";
 		age = 1;
 	}
+	
+//	@Override
+//	protected final void finalize() {
+//	}
 
 }
